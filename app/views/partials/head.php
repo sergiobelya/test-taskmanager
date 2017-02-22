@@ -10,7 +10,9 @@
             $script('https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js', 'jquery');
             $script('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js', 'bootstrap');
             $script('https://cdn.datatables.net/v/bs-3.3.7/jq-2.2.4/dt-1.10.13/fc-3.2.2/fh-3.1.2/r-2.1.1/sc-1.4.2/datatables.min.js', 'datatable');
-            $script('', '');
+            $script('/js/HTML5-History-API/history.min.js', 'history');
+            $script('<?= uri_static('/js/common-func.js') ?>', 'common-func');
+            $script('<?= uri_static('/js/common.js') ?>');
         </script>
 
         <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>-->

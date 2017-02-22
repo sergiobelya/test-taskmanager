@@ -14,3 +14,13 @@ function uri($uri)
 {
     return '/' . trim($uri, '/');
 }
+
+function uri_static($url)
+{
+    $path = realpath(docRoot() . $url);
+    $uri = uri($url);
+    if (!$path) {
+        return $uri;
+    }
+    return $uri .= '?' . filemtime($path);
+}
