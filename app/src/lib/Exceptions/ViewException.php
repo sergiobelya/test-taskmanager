@@ -2,10 +2,12 @@
 
 namespace sergiobelya\TestTaskmanager\lib\Exceptions;
 
+use Exception;
+
 /**
  * @author Serg
  */
-class ViewException
+class ViewException extends Exception
 {
     
 }

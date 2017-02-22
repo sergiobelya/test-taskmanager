@@ -15,18 +15,18 @@ class View
 
     public function __construct()
     {
-        $this->views_dir = realpath(__DIR__ . '../..' . 'views') . DIRECTORY_SEPARATOR;
+        $this->views_dir = appPath() . 'views' . DIRECTORY_SEPARATOR;
     }
 
     public function render($filename, $vars = array())
     {
-        $filepath = $this->views_dir . $filename . self::$views_ext;
+        $filepath = realpath($this->views_dir . $filename . self::$views_ext);
         if (!file_exists($filepath)) {
-            throw new ViewException();
+            throw new ViewException("Template $filename is not exists");
         }
         ob_start();
         extract($vars);
         include $filepath;
-        return ob_get_contents();
+        return ob_get_clean();
     }
 }

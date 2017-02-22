@@ -2,6 +2,7 @@
 
 use sergiobelya\TestTaskmanager\lib\Request;
 
+include 'common_func.php';
 include 'routes.php';
 
 $request = new Request();
