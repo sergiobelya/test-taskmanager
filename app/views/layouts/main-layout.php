@@ -2,6 +2,13 @@
 <html>
     <?= $this->render('partials/head') ?>
     <body>
-        <?= $content ?>
+        <?= $this->render('partials/header-nav') ?>
+
+        <div class="container" id="main">
+            <?= $content ?>
+        </div> <!-- /container -->
+<?php
+
+?>
     </body>
 </html>

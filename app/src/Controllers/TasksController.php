@@ -3,6 +3,7 @@
 namespace sergiobelya\TestTaskmanager\Controllers;
 
 use sergiobelya\TestTaskmanager\lib\AbstractController;
+use sergiobelya\TestTaskmanager\lib\Request;
 
 /**
  * @author Serg
@@ -10,8 +11,15 @@ use sergiobelya\TestTaskmanager\lib\AbstractController;
 class TasksController extends AbstractController
 {
 
+    public function __construct(Request $request)
+    {
+        parent::__construct($request);
+        $this->layout = 'layouts/main-layout';
+    }
+
     public function index()
     {
-        return $this->tpl->render('pages/tasks-list');
+        $this->content = $this->tpl->render('pages/tasks-list');
+        return $this->render_content();
     }
 }
