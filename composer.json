@@ -1,0 +1,24 @@
+{
+    "name": "sergiobelya/test-hexa-imageloader",
+    "description": "This is the test task for BeeJee company",
+    "version": "0.1.0",
+    "license": "MIT",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Sergei Belyakov",
+            "email": "sergiobelya@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.9",
+        "illuminate/routing": "^5.2",
+        "illuminate/database": "^5.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "sergiobelya\\TestTaskmanager\\": "app/src/"
+        }
+    }
+}
