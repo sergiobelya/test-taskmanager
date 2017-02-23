@@ -1,4 +1,7 @@
 <?php
+/**
+ * psr-4 autoload
+ */
 
 spl_autoload_register(function ($class) {
 

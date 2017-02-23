@@ -2,3 +2,4 @@
 /dayside
 /uploads/
 composer.lock
+.env

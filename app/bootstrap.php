@@ -3,20 +3,42 @@
 use sergiobelya\TestTaskmanager\lib\Request;
 
 include 'common_func.php';
-include 'routes.php';
+
+$dotenv = new Dotenv\Dotenv(__DIR__ . '/../');
+$dotenv->load();
+
+$config_db = include 'config/database.php';
+$cnf_mysql = $config_db['connections']['mysql'];
+/*
+ActiveRecord\Config::initialize(function($cfg) use ($cnf_mysql) {
+    $cfg->set_connections(
+            array(
+                'mysql' => "mysql://{$cnf_mysql['username']}:{$cnf_mysql['password']}@{$cnf_mysql['host']}/{$cnf_mysql['database']}",
+            )
+    );
+    $cfg->set_default_connection('mysql');
+});
+*/
+use Illuminate\Database\Capsule\Manager as Capsule;
+$capsule = new Capsule;
+$capsule->addConnection($cnf_mysql);
+// Make this Capsule instance available globally via static methods... (optional)
+$capsule->setAsGlobal();
+// Setup the Eloquent ORM... (optional; unless you've used setEventDispatcher())
+$capsule->bootEloquent();
 
 $request = new Request();
 
+// Dispatch URI
+include 'routes.php';
 // Fetch method and URI from somewhere
 $http_method = filter_input(INPUT_SERVER, 'REQUEST_METHOD');
 $uri = filter_input(INPUT_SERVER, 'REQUEST_URI');
-
 // Strip query string (?foo=bar) and decode URI
 if (false !== $pos = strpos($uri, '?')) {
     $uri = substr($uri, 0, $pos);
 }
 $uri = rawurldecode($uri);
-
 $route_info = $dispatcher->dispatch($http_method, $uri);
 switch ($route_info[0]) {
     case FastRoute\Dispatcher::NOT_FOUND:
