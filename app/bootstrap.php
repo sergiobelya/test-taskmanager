@@ -2,35 +2,14 @@
 
 use sergiobelya\TestTaskmanager\lib\Request;
 
-include 'common_func.php';
+require 'common_func.php';
+require 'boot_libs.php';
 
-$dotenv = new Dotenv\Dotenv(__DIR__ . '/../');
-$dotenv->load();
-
-$config_db = include 'config/database.php';
-$cnf_mysql = $config_db['connections']['mysql'];
-/*
-ActiveRecord\Config::initialize(function($cfg) use ($cnf_mysql) {
-    $cfg->set_connections(
-            array(
-                'mysql' => "mysql://{$cnf_mysql['username']}:{$cnf_mysql['password']}@{$cnf_mysql['host']}/{$cnf_mysql['database']}",
-            )
-    );
-    $cfg->set_default_connection('mysql');
-});
-*/
-use Illuminate\Database\Capsule\Manager as Capsule;
-$capsule = new Capsule;
-$capsule->addConnection($cnf_mysql);
-// Make this Capsule instance available globally via static methods... (optional)
-$capsule->setAsGlobal();
-// Setup the Eloquent ORM... (optional; unless you've used setEventDispatcher())
-$capsule->bootEloquent();
-
+// Init Request
 $request = new Request();
 
 // Dispatch URI
-include 'routes.php';
+$dispatcher = include 'routes.php';
 // Fetch method and URI from somewhere
 $http_method = filter_input(INPUT_SERVER, 'REQUEST_METHOD');
 $uri = filter_input(INPUT_SERVER, 'REQUEST_URI');
@@ -43,8 +22,7 @@ $route_info = $dispatcher->dispatch($http_method, $uri);
 switch ($route_info[0]) {
     case FastRoute\Dispatcher::NOT_FOUND:
         // ... 404 Not Found
-        header('HTTP/1.1 404 Not Found');
-        echo 'NOT FOUND';
+        error404();
         break;
     case FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
         // ... 405 Method Not Allowed
@@ -57,7 +35,8 @@ switch ($route_info[0]) {
         // ... call $handler with $vars
         $handler = $route_info[1];
         $vars = $route_info[2];
-        if ($pos_action_delim = strpos($handler, '::')) {
+        $pos_action_delim = strpos($handler, '::');
+        if ($pos_action_delim) {
             $controller_name = substr($handler, 0, $pos_action_delim);
             $action = substr($handler, $pos_action_delim + 2);
             $request->setRouteParams($vars);

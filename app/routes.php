@@ -1,6 +1,9 @@
 <?php
+/**
+ * @return FastRoute\simpleDispatcher
+ */
 
-$dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
+return FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
     $r->addRoute('GET', '/', 'TasksController::index');
 //    $r->addRoute('GET', '/users', 'get_all_users_handler');
     // {id} must be a number (\d+)

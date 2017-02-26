@@ -1,4 +1,5 @@
 <?php
+use sergiobelya\TestTaskmanager\lib\Exceptions\Http404Exception;
 
 function docRoot()
 {
@@ -15,7 +16,7 @@ function uri($uri)
     return '/' . trim($uri, '/');
 }
 
-function uri_static($url)
+function uriStatic($url)
 {
     $path = realpath(docRoot() . $url);
     $uri = uri($url);
@@ -23,4 +24,9 @@ function uri_static($url)
         return $uri;
     }
     return $uri .= '?' . filemtime($path);
+}
+
+function error404($msg = '')
+{
+    throw new Http404Exception($msg);
 }
