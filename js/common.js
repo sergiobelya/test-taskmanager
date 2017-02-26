@@ -19,7 +19,6 @@ $('body').on('click', 'a.ajax', function (e) {
     var precallback_str = $(e.currentTarget).attr('data-precallback');
     var callback_str = $(e.currentTarget).attr('data-callback');
     ajaxLoad(href, selector, precallback_str, callback_str, e);
-    hideTooltip($(e.currentTarget));
 });
 
 // обработка форм, отправляемых аяксом,

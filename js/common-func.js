@@ -99,3 +99,8 @@ function formAjaxErrorCallback(xhr, $form) {
         }
     }
 }
+
+function dataTableInit(selector, params) {
+    if (!params) { params = {}; }
+    $(selector).dataTable(params);
+}
