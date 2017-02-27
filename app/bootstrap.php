@@ -3,11 +3,9 @@
 use sergiobelya\TestTaskmanager\lib\Request;
 
 require 'common_func.php';
+require 'boot_libs.php';
 
 try {
-
-    require 'boot_libs.php';
-
     // Init Request
     $request = new Request();
 
