@@ -3,7 +3,6 @@
 namespace sergiobelya\TestTaskmanager\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @author Serg
